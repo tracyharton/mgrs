@@ -3,3 +3,4 @@ build/
 libmgrs.so
 mgrs.egg-info/
 dist/
+.DS_Store
