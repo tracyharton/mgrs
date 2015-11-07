@@ -168,7 +168,7 @@ const char* BESSEL_1841_NAMIBIA = "BN";
 
 typedef struct Latitude_Band_Value
 {
-  long letter;            /* letter representing latitude band  */
+  int letter;            /* letter representing latitude band  */
   double min_northing;    /* minimum northing for latitude band */       
   double north;           /* upper latitude for latitude band   */
   double south;           /* lower latitude for latitude band   */
@@ -677,7 +677,7 @@ long UTM_To_MGRS (long Zone,
     if(grid_northing >= TWOMIL)
       grid_northing = grid_northing - TWOMIL;
 
-    letters[2] = (long)(grid_northing / ONEHT); 
+    letters[2] = (int)(grid_northing / ONEHT); 
     if (letters[2] > LETTER_H)
       letters[2] = letters[2] + 1;
 
@@ -688,7 +688,7 @@ long UTM_To_MGRS (long Zone,
     if (((letters[0] == LETTER_V) && (Zone == 31)) && (grid_easting == 500000.0))
       grid_easting = grid_easting - 1.0; /* SUBTRACT 1 METER */
 
-    letters[1] = ltr2_low_value + ((long)(grid_easting / ONEHT) -1); 
+    letters[1] = (int)ltr2_low_value + ((grid_easting / ONEHT) -1); 
     if ((ltr2_low_value == LETTER_J) && (letters[1] > LETTER_N))
       letters[1] = letters[1] + 1;
 
@@ -1199,7 +1199,7 @@ long Convert_UPS_To_MGRS (char   Hemisphere,
 
     grid_northing = Northing;
     grid_northing = grid_northing - false_northing;
-    letters[2] = (long)(grid_northing / ONEHT);
+    letters[2] = (int)(grid_northing / ONEHT);
 
     if (letters[2] > LETTER_H)
       letters[2] = letters[2] + 1;
@@ -1209,7 +1209,7 @@ long Convert_UPS_To_MGRS (char   Hemisphere,
 
     grid_easting = Easting;
     grid_easting = grid_easting - false_easting;
-    letters[1] = ltr2_low_value + ((long)(grid_easting / ONEHT)); 
+    letters[1] = (int)ltr2_low_value + (grid_easting / ONEHT); 
 
     if (Easting < TWOMIL)
     {
@@ -1277,7 +1277,7 @@ long Convert_MGRS_To_UPS ( char   *MGRS,
       {
         *Hemisphere = 'N';
 
-        index = letters[0] - 22;
+        index = (int)(letters[0] - 22);
         ltr2_low_value = UPS_Constant_Table[index].ltr2_low_value;
         ltr2_high_value = UPS_Constant_Table[index].ltr2_high_value;
         ltr3_high_value = UPS_Constant_Table[index].ltr3_high_value;
